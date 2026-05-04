@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prof. Dr. Lydia Göse — Marketing & KI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --green-deep: #1a3a2a;
+    --green-mid: #2d5a3d;
+    --green-accent: #3d7a52;
+    --green-light: #c8e6d4;
+    --green-pale: #f0f8f3;
+    --cream: #f5f0e8;
+    --offwhite: #fafaf7;
+    --text-dark: #1a1a18;
+    --text-mid: #3d3d3a;
+    --text-muted: #7a7a74;
+    --border: rgba(26,58,42,0.15);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Space Grotesk', sans-serif; background: var(--offwhite); color: var(--text-dark); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+
+  nav { position: sticky; top: 0; z-index: 100; background: var(--offwhite); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 56px; }
+  .nav-logo { font-family: 'Space Mono', monospace; font-size: 13px; font-weight: 700; color: var(--green-deep); letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a { font-size: 13px; color: var(--text-muted); text-decoration: none; letter-spacing: 0.04em; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--green-deep); }
+  .nav-cta { background: var(--green-deep); color: var(--cream); padding: 6px 16px; border-radius: 2px; font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-decoration: none; text-transform: uppercase; transition: background 0.2s; }
+  .nav-cta:hover { background: var(--green-mid); }
+
+  /* HERO */
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 88vh; border-bottom: 1px solid var(--border); }
+  .hero-left { padding: 5rem 3rem 5rem 2.5rem; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid var(--border); }
+  .hero-tag { font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green-accent); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 8px; }
+  .hero-tag::before { content: ''; display: block; width: 24px; height: 2px; background: var(--green-accent); }
+  .hero-name { font-size: clamp(2.8rem, 5vw, 4.5rem); font-weight: 700; line-height: 1.05; color: var(--green-deep); letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+  .hero-claim { font-size: 1.15rem; color: var(--text-mid); line-height: 1.7; max-width: 420px; margin-bottom: 2.5rem; }
+  .hero-claim strong { color: var(--green-deep); font-weight: 500; }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary { background: var(--green-deep); color: var(--cream); padding: 12px 28px; border-radius: 2px; font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-decoration: none; text-transform: uppercase; transition: background 0.2s; display: inline-block; }
+  .btn-primary:hover { background: var(--green-mid); }
+  .btn-secondary { background: transparent; color: var(--green-deep); padding: 12px 28px; border-radius: 2px; border: 1px solid var(--green-deep); font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-decoration: none; text-transform: uppercase; transition: all 0.2s; display: inline-block; }
+  .btn-secondary:hover { background: var(--green-pale); }
+
+  .hero-right { background: var(--green-deep); display: flex; flex-direction: column; justify-content: space-between; padding: 2.5rem; position: relative; overflow: hidden; }
+  .hero-geo { position: absolute; top: -60px; right: -60px; width: 260px; height: 260px; border: 1px solid rgba(200,230,212,0.1); border-radius: 50%; }
+  .hero-geo2 { position: absolute; bottom: 160px; left: -40px; width: 100px; height: 100px; background: var(--green-mid); border-radius: 2px; opacity: 0.4; }
+
+  .hero-photo { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center top; border-radius: 2px; display: block; position: relative; z-index: 2; border: 1px solid rgba(200,230,212,0.15); }
+
+  .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(200,230,212,0.1); border: 1px solid rgba(200,230,212,0.1); border-radius: 2px; overflow: hidden; position: relative; z-index: 2; margin-top: 1.5rem; }
+  .hero-stat { padding: 1rem 1.25rem; background: rgba(26,58,42,0.6); }
+  .hero-stat-num { font-family: 'Space Mono', monospace; font-size: 1.6rem; font-weight: 700; color: var(--green-light); line-height: 1; margin-bottom: 4px; }
+  .hero-stat-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(200,230,212,0.5); }
+
+  /* SECTIONS */
+  section { padding: 5rem 2.5rem; }
+  .section-header { display: flex; align-items: flex-start; gap: 2rem; margin-bottom: 3.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+  .section-num { font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700; color: var(--green-accent); letter-spacing: 0.1em; text-transform: uppercase; padding-top: 6px; min-width: 2.5rem; }
+  .section-title { font-size: 2rem; font-weight: 700; color: var(--green-deep); line-height: 1.1; letter-spacing: -0.02em; }
+  .section-sub { font-size: 0.95rem; color: var(--text-muted); margin-top: 4px; }
+
+  /* ÜBER MICH */
+  .about-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; align-items: start; }
+  .about-card { background: var(--green-deep); border-radius: 2px; padding: 2rem; color: var(--cream); }
+  .about-card-name { font-size: 1.2rem; font-weight: 500; margin-bottom: 4px; }
+  .about-card-role { font-size: 12px; color: var(--green-light); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 1.5rem; }
+  .about-card-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.5rem; }
+  .tag { font-size: 11px; padding: 4px 10px; border-radius: 2px; background: rgba(200,230,212,0.15); color: var(--green-light); letter-spacing: 0.04em; text-transform: uppercase; }
+  .about-text p { color: var(--text-mid); margin-bottom: 1rem; line-height: 1.8; }
+  .about-text p:last-child { margin-bottom: 0; }
+
+  /* PROJEKTE */
+  .projects { background: var(--cream); }
+  .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .project-card { background: var(--offwhite); padding: 2rem; transition: background 0.2s; }
+  .project-card:hover { background: var(--green-pale); }
+  .project-num { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--green-accent); letter-spacing: 0.1em; margin-bottom: 1.5rem; text-transform: uppercase; }
+  .project-title { font-size: 1.1rem; font-weight: 500; color: var(--green-deep); margin-bottom: 0.5rem; }
+  .project-desc { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.7; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .project-tag { font-size: 11px; padding: 3px 8px; border-radius: 2px; background: var(--green-light); color: var(--green-deep); letter-spacing: 0.04em; font-weight: 500; }
+
+  /* LEHRPREIS */
+  .award { background: var(--offwhite); }
+  .award-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; align-items: start; }
+  .award-photo-wrap { border-radius: 2px; overflow: hidden; border: 1px solid var(--border); }
+  .award-photo-wrap img { width: 100%; display: block; aspect-ratio: 4/3; object-fit: cover; object-position: center top; }
+  .award-badge { background: var(--green-deep); padding: 1.25rem 1.5rem; }
+  .award-badge-label { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green-accent); margin-bottom: 6px; }
+  .award-badge-title { font-size: 1.1rem; font-weight: 500; color: var(--green-light); }
+  .award-badge-sub { font-size: 12px; color: rgba(200,230,212,0.55); margin-top: 4px; }
+  .award-text p { color: var(--text-mid); margin-bottom: 1rem; line-height: 1.8; }
+  .award-text p:last-child { margin-bottom: 0; }
+  .award-quote { border-left: 2px solid var(--green-accent); padding-left: 1.25rem; margin: 1.5rem 0; font-size: 1rem; color: var(--green-deep); font-weight: 500; line-height: 1.6; }
+
+  /* KOMPETENZEN */
+  .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .skill-block { border: 1px solid var(--border); border-radius: 2px; padding: 2rem; transition: border-color 0.2s; }
+  .skill-block:hover { border-color: var(--green-accent); }
+  .skill-icon { width: 40px; height: 40px; background: var(--green-deep); border-radius: 2px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+  .skill-icon svg { width: 16px; height: 16px; stroke: var(--cream); fill: none; stroke-width: 2; }
+  .skill-name { font-size: 1rem; font-weight: 500; color: var(--green-deep); margin-bottom: 0.5rem; }
+  .skill-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; }
+
+  /* ZUKUNFT */
+  .future { background: var(--green-deep); color: var(--cream); }
+  .future .section-title { color: var(--green-light); }
+  .future .section-num { color: var(--green-accent); }
+  .future .section-header { border-bottom-color: rgba(200,230,212,0.15); }
+  .future-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .future-card { border: 1px solid rgba(200,230,212,0.2); border-radius: 2px; padding: 2rem; transition: border-color 0.2s; }
+  .future-card:hover { border-color: var(--green-light); }
+  .future-card-label { font-family: 'Space Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--green-accent); margin-bottom: 1rem; }
+  .future-card-title { font-size: 1.3rem; font-weight: 500; color: var(--green-light); margin-bottom: 0.75rem; }
+  .future-card-text { font-size: 0.9rem; color: rgba(200,230,212,0.65); line-height: 1.75; }
+
+  /* NETZWERK */
+  .network-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 3rem; }
+  .network-item { background: var(--offwhite); padding: 1.5rem; text-align: center; }
+  .network-name { font-size: 0.85rem; font-weight: 500; color: var(--green-deep); margin-bottom: 4px; }
+  .network-role { font-size: 11px; color: var(--text-muted); letter-spacing: 0.04em; }
+  .network-dot { width: 36px; height: 36px; border-radius: 50%; background: var(--green-light); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; color: var(--green-deep); margin: 0 auto 0.75rem; }
+
+  /* KONTAKT */
+  .contact { background: var(--cream); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .contact-claim { font-size: 1.8rem; font-weight: 700; color: var(--green-deep); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 1rem; }
+  .contact-sub { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 2rem; line-height: 1.7; }
+  .contact-link { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: var(--green-deep); text-decoration: none; margin-bottom: 1rem; font-weight: 500; }
+  .contact-link-icon { width: 32px; height: 32px; border-radius: 2px; background: var(--green-deep); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-form input, .contact-form textarea { background: var(--offwhite); border: 1px solid var(--border); border-radius: 2px; padding: 12px 16px; font-family: 'Space Grotesk', sans-serif; font-size: 14px; color: var(--text-dark); outline: none; transition: border-color 0.2s; width: 100%; }
+  .contact-form input:focus, .contact-form textarea:focus { border-color: var(--green-accent); }
+  .contact-form textarea { min-height: 120px; resize: vertical; }
+
+  footer { padding: 2rem 2.5rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .footer-name { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--text-muted); letter-spacing: 0.06em; text-transform: uppercase; }
+  .footer-copy { font-size: 12px; color: var(--text-muted); }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 1.25rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-right { min-height: 400px; }
+    .hero-left { padding: 3rem 1.25rem; }
+    section { padding: 3rem 1.25rem; }
+    .about-grid, .award-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .skills-grid, .future-grid { grid-template-columns: 1fr; }
+    .network-grid { grid-template-columns: repeat(2, 1fr); }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Prof. Dr. Lydia Göse</a>
+  <div class="nav-links">
+    <a href="#about">Über mich</a>
+    <a href="#projects">Projekte</a>
+    <a href="#award">Lehrpreis</a>
+    <a href="#future">Themen</a>
+    <a href="#contact">Kontakt</a>
+  </div>
+  <a href="#contact" class="nav-cta">Zusammenarbeiten</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding:0" id="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Marketing & KI — TH Wildau</div>
+    <h1 class="hero-name">Prof. Dr.<br>Lydia Göse</h1>
+    <p class="hero-claim">
+      Ich verbinde <strong>strategisches Marketing</strong> mit den Möglichkeiten moderner <strong>KI-Methoden</strong> — in Forschung, Lehre und Praxiskooperationen mit Unternehmen, die wirklich etwas bewegen wollen.
+    </p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary">Projekte ansehen</a>
+      <a href="#contact" class="btn-secondary">Kontakt aufnehmen</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-geo"></div>
+    <div class="hero-geo2"></div>
+    <img src="lydia_goese.jpg" alt="Prof. Dr. Lydia Göse" class="hero-photo">
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">15+</div>
+        <div class="hero-stat-label">Projekte</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">5</div>
+        <div class="hero-stat-label">Schwerpunkte</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">★</div>
+        <div class="hero-stat-label">Landeslehrpreis 2024</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">15J</div>
+        <div class="hero-stat-label">Lehrerfahrung</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ÜBER MICH -->
+<section id="about">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <div>
+      <h2 class="section-title">Über mich</h2>
+      <p class="section-sub">Wer ich bin, was mich antreibt</p>
+    </div>
+  </div>
+  <div class="about-grid">
+    <div>
+      <div class="about-card">
+        <img src="lydia_goese.jpg" alt="Prof. Dr. Lydia Göse" style="width:72px;height:72px;object-fit:cover;border-radius:2px;margin-bottom:1rem;display:block;">
+        <div class="about-card-name">Prof. Dr. Lydia Göse</div>
+        <div class="about-card-role">Professorin für Digitales Marketing</div>
+        <hr style="border:none;border-top:1px solid rgba(200,230,212,0.2);margin:1rem 0">
+        <div style="font-size:12px;color:rgba(200,230,212,0.6);line-height:1.7">
+          TH Wildau<br>
+          seit September 2022<br>
+          Dr.-Tyczka-Preis, TU München
+        </div>
+        <div style="margin-top:1.25rem;border:1px solid rgba(200,230,212,0.2);border-radius:2px;overflow:hidden;">
+          <img src="landeslehrpreis.jpg" alt="Verleihung des Brandenburger Landeslehrpreises" style="width:100%;aspect-ratio:4/3;object-fit:cover;object-position:center top;display:block;">
+          <div style="padding:0.75rem 1rem;background:rgba(200,230,212,0.08);">
+            <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--green-accent);margin-bottom:4px;">Auszeichnung 2024</div>
+            <div style="font-size:13px;font-weight:500;color:var(--green-light);line-height:1.4;">Brandenburger Landeslehrpreis</div>
+            <div style="font-size:11px;color:rgba(200,230,212,0.55);margin-top:3px;">KI in der Hochschullehre · 10.000 €</div>
+          </div>
+        </div>
+        <div class="about-card-tags">
+          <span class="tag">Marketing</span>
+          <span class="tag">KI</span>
+          <span class="tag">Strategie</span>
+          <span class="tag">Content</span>
+        </div>
+      </div>
+    </div>
+    <div class="about-text">
+      <p>Seit September 2022 bin ich Professorin für Digitales Marketing an der Technischen Hochschule Wildau — und es ist ein absoluter Traumberuf. Zuvor leitete ich sieben Jahre einen Innovationsinkubator beim Tagesspiegel in Berlin, wo ich mit Kunden aus den Bereichen Gesundheit, Digitalisierung und Mobilität zusammenarbeitete und Ideen der Zukunft Raum gab.</p>
+      <p>2024 wurde ich mit dem Brandenburger Landeslehrpreis für mein Modul „International Marketing Management" ausgezeichnet — einem der renommiertesten Lehrpreise des Landes, verliehen von Wissenschaftsministerin Dr. Manja Schüle. Meine Dissertation an der TU München wurde zudem mit dem Dr.-Tyczka-Preis ausgezeichnet. Praktische Stationen führten mich zur Robert Bosch Stiftung, zur Daimler AG und zu Tempus Corporate (ZEIT Verlag).</p>
+      <p>Ich glaube, dass eine Ausbildung ohne KI nicht mehr geht — und dass Wirtschaft und Gesellschaft durch einen cleveren Umgang mit KI enorm profitieren können. In Wildau verbinde ich genau das: Lehre auf Augenhöhe, Praxiskooperationen mit Unternehmen wie Oracle, Mercedes-Benz und Kinova sowie Forschung zu den drängendsten Fragen unserer digitalen Gegenwart. Wenn ich nicht an der Hochschule bin, findet man mich auf einem Segelboot.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJEKTE -->
+<section id="projects" class="projects">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <div>
+      <h2 class="section-title">Ausgewählte Projekte</h2>
+      <p class="section-sub">Praxiskooperationen mit Unternehmen und Institutionen</p>
+    </div>
+  </div>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-num">Projekt — 01</div>
+      <img src="kinova_group.jpg" alt="Kinova Projekt" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:2px;margin-bottom:1.25rem;">
+      <h3 class="project-title">KI-gestütztes Call Center — Kinova</h3>
+      <p class="project-desc">Masterstudierende der TH Wildau entwickelten gemeinsam mit Kinova KI-basierte Konzepte für den Kundenservice der Zukunft: mehrsprachig, wartezeitslos, skalierbar — und mit echter Kundenzufriedenheit als Ziel.</p>
+      <div class="project-tags">
+        <span class="project-tag">KI & Customer Service</span>
+        <span class="project-tag">Digital Marketing</span>
+        <span class="project-tag">Challenge-based Learning</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-num">Projekt — 02</div>
+      <img src="filmuni_exhibition.jpg" alt="Digitale Ausstellung Designed@THWildau" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:2px;margin-bottom:1.25rem;">
+      <h3 class="project-title">Designed@THWildau — Digitale Ausstellung mit Filmuniversität Babelsberg</h3>
+      <p class="project-desc">Studierende aus 14 Nationen erkundeten Rituale und Traditionen und schufen eine Ausstellung auf drei Ebenen: Apple Vision Pro, iCampus-Browser und physische Installation — in Kooperation mit der Filmuniversität Babelsberg KONRAD WOLF.</p>
+      <div class="project-tags">
+        <span class="project-tag">Digital Marketing</span>
+        <span class="project-tag">Apple Vision Pro</span>
+        <span class="project-tag">Interdisziplinär</span>
+        <span class="project-tag">14 Nationen</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-num">Projekt — 03</div>
+      <img src="oracle_masterclass.jpg" alt="Oracle Analytics Masterclass" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:2px;margin-bottom:1.25rem;">
+      <h3 class="project-title">Oracle Analytics Masterclass — 3 Jahre Kooperation</h3>
+      <p class="project-desc">Jährliche Masterclass mit Oracle-Expertinnen direkt an der TH Wildau: Von Go-to-Market-Strategien über Analytics-Methoden bis zu kreativen Event-Formaten — praxisnah, inspirierend und mittlerweile eine echte Tradition.</p>
+      <div class="project-tags">
+        <span class="project-tag">Oracle Analytics</span>
+        <span class="project-tag">GTM-Strategie</span>
+        <span class="project-tag">Masterclass</span>
+        <span class="project-tag">Marketing & Sales</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEHRPREIS -->
+<section id="award" class="award">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <div>
+      <h2 class="section-title">Brandenburger Landeslehrpreis 2024</h2>
+      <p class="section-sub">Auszeichnung für KI in der Hochschullehre</p>
+    </div>
+  </div>
+  <div class="award-grid">
+    <div>
+      <div class="award-photo-wrap">
+        <img src="landeslehrpreis.jpg" alt="Verleihung des Brandenburger Landeslehrpreises an Prof. Dr. Lydia Göse">
+        <div class="award-badge">
+          <div class="award-badge-label">Auszeichnung 2024</div>
+          <div class="award-badge-title">Brandenburger Landeslehrpreis</div>
+          <div class="award-badge-sub">KI in der Hochschullehre · 10.000 €</div>
+        </div>
+      </div>
+    </div>
+    <div class="award-text">
+      <p>Am 4. Mai 2024 verlieh Brandenburgs Wissenschaftsministerin Dr. Manja Schüle auf dem Potsdamer Tag der Wissenschaften die Brandenburger Wissenschaftspreise. Prof. Dr. Lydia Göse erhielt den Landeslehrpreis für ihr Modul „International Marketing Management" an der TH Wildau — ausgezeichnet unter dem Motto „Künstliche Intelligenz in der Hochschullehre".</p>
+      <div class="award-quote">„Ich glaube, dass eine Ausbildung ohne KI eigentlich nicht mehr geht. Wir müssen lernen, KI-Tools clever zu nutzen und auch zu reflektieren, wo die Grenzen sind. Ich bringe meinen Studierenden bei, dass das Digitale nicht binär ist."</div>
+      <p>Der Lehransatz: Kein separates KI-Modul, sondern Integration in jedes Thema über drei Stufen — von der analogen Handarbeit über KI-Unterstützung bis zur vollständig KI-basierten Lösung. Wie früher mit dem Taschenrechner: erst verstehen, dann gezielt einsetzen.</p>
+    </div>
+  </div>
+</section>
+
+<!-- KOMPETENZEN -->
+<section id="skills">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <div>
+      <h2 class="section-title">Kompetenzen</h2>
+      <p class="section-sub">Was ich mitbringe</p>
+    </div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-block">
+      <div class="skill-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+      <div class="skill-name">Strategisches Marketing</div>
+      <p class="skill-desc">Zielgruppenanalyse, Positionierung, Kampagnenplanung, Marktforschung — mit einem Blick für das Wesentliche statt für Buzzwords.</p>
+    </div>
+    <div class="skill-block">
+      <div class="skill-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <div class="skill-name">KI-Tools & Automatisierung</div>
+      <p class="skill-desc">Praktische Erfahrung mit LLMs, Prompt Engineering, KI-gestützter Content-Erstellung und Tool-Stacks für Marketing-Workflows.</p>
+    </div>
+    <div class="skill-block">
+      <div class="skill-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+      <div class="skill-name">Content & Kommunikation</div>
+      <p class="skill-desc">Texten für verschiedene Formate und Zielgruppen — von Fachkommunikation bis Social-Media-Copy, analog wie digital.</p>
+    </div>
+    <div class="skill-block">
+      <div class="skill-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+      <div class="skill-name">Forschung & Lehre</div>
+      <p class="skill-desc">15 Jahre Hochschullehre, Praxiskooperationen mit internationalen Unternehmen und preisgekrönte didaktische Konzepte für KI-integrierte Ausbildung.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ZUKUNFT -->
+<section id="future" class="future">
+  <div class="section-header">
+    <span class="section-num" style="color:var(--green-accent)">05</span>
+    <div>
+      <h2 class="section-title">Zukunftsthemen</h2>
+      <p class="section-sub" style="color:rgba(200,230,212,0.5)">Was mich als nächstes beschäftigt</p>
+    </div>
+  </div>
+  <div class="future-grid">
+    <div class="future-card">
+      <div class="future-card-label">Schwerpunkt I</div>
+      <h3 class="future-card-title">Marketing-Automatisierung mit KI</h3>
+      <p class="future-card-text">Wie können mittelständische Unternehmen KI-Tools sinnvoll in ihre Marketing-Prozesse integrieren — ohne Effizienz auf Kosten von Authentizität zu erkaufen? Das ist die Frage, die mich antreibt.</p>
+    </div>
+    <div class="future-card">
+      <div class="future-card-label">Schwerpunkt II</div>
+      <h3 class="future-card-title">Datengetriebene Kommunikation</h3>
+      <p class="future-card-text">Von der Intuition zur Entscheidung — wie Daten und Analytics Marketing-Entscheidungen substanziell verbessern können, ohne den kreativen Kern zu verlieren.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NETZWERK -->
+<section id="network">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <div>
+      <h2 class="section-title">Netzwerk</h2>
+      <p class="section-sub">Kooperationen und Partnerschaften</p>
+    </div>
+  </div>
+  <div class="network-grid">
+    <div class="network-item">
+      <img src="kinova_group.jpg" style="width:48px;height:48px;object-fit:cover;border-radius:50%;margin:0 auto 0.75rem;display:block;" alt="Kinova">
+      <div class="network-name">Kinova</div>
+      <div class="network-role">KI-gestützter Kundenservice</div>
+    </div>
+    <div class="network-item">
+      <img src="filmuni_exhibition.jpg" style="width:48px;height:48px;object-fit:cover;border-radius:50%;margin:0 auto 0.75rem;display:block;" alt="Filmuniversität Babelsberg">
+      <div class="network-name">Filmuniversität Babelsberg</div>
+      <div class="network-role">Digitale Ausstellung</div>
+    </div>
+    <div class="network-item">
+      <img src="oracle_masterclass.jpg" style="width:48px;height:48px;object-fit:cover;border-radius:50%;margin:0 auto 0.75rem;display:block;" alt="Oracle">
+      <div class="network-name">Oracle</div>
+      <div class="network-role">Analytics Masterclass</div>
+    </div>
+    <div class="network-item">
+      <div class="network-dot">+</div>
+      <div class="network-name">Dein Unternehmen</div>
+      <div class="network-role">Zukünftiger Partner?</div>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section id="contact" class="contact">
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <div>
+      <h2 class="section-title">Kontakt</h2>
+      <p class="section-sub">Lass uns sprechen</p>
+    </div>
+  </div>
+  <div class="contact-grid">
+    <div>
+      <p class="contact-claim">Bereit für eine Zusammenarbeit?</p>
+      <p class="contact-sub">Ich freue mich über Anfragen zu Praxiskooperationen, Gastvorträgen, Forschungsprojekten und gemeinsamen Initiativen rund um Digitales Marketing und KI.</p>
+      <a href="mailto:lydia.goese@th-wildau.de" class="contact-link">
+        <div class="contact-link-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#c8e6d4" stroke-width="2" width="16" height="16"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        lydia.goese@th-wildau.de
+      </a>
+      <a href="https://www.linkedin.com/in/lydia-goese/" class="contact-link">
+        <div class="contact-link-icon" style="background:var(--green-mid)">
+          <svg viewBox="0 0 24 24" fill="#c8e6d4" width="16" height="16"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        </div>
+        LinkedIn-Profil
+      </a>
+    </div>
+    <div>
+      <form action="https://formspree.io/f/xaqveadn" method="POST" class="contact-form">
+        <input type="text" name="name" placeholder="Dein Name">
+        <input type="email" name="email" placeholder="Deine E-Mail">
+        <input type="text" name="company" placeholder="Unternehmen / Organisation">
+        <textarea name="message" placeholder="Deine Nachricht …"></textarea>
+        <button type="submit" class="btn-primary" style="text-align:center;border:none;cursor:pointer;">Nachricht senden</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-name">Prof. Dr. Lydia Göse — Marketing & KI</div>
+  <div class="footer-copy">© 2025</div>
+</footer>
+
+</body>
+</html>
